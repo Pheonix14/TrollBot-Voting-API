@@ -2,18 +2,22 @@ const { Client, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config/config.json');
 const client = new Client({ intents: [GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers] });
-
+require( 'console-stamp' )( console, {
+    format: ':date(yyyy/mm/dd HH:MM:ss).yellow :label(1)'
+} );
 
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-["api"]
+
+require("./database/connect.js");
+
+["vote", "antiCrash"]
     .filter(Boolean)
     .forEach(h => {
-        require(`./API/${h}`)(client);
-    })
+        require(`./handlers/${h}`)(client);
+    });
 
 
-client.login(token)
-
+client.login(token);
