@@ -22,7 +22,7 @@ const currency = db.table("currency");
   if (user === null) return;
 
   await items.add(`${user.id}.bank_upgrader`, 2)
-
+await currency.add(`${user.id}.inventory_worth`, 30000)
 await currency.add(`${user.id}.balance`, 50000)
 
 const embed = new EmbedBuilder()
